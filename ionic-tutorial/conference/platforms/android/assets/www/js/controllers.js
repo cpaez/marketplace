@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['starter.services'])
+angular.module('starter.controllers', [])
 
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
@@ -43,9 +43,16 @@ angular.module('starter.controllers', ['starter.services'])
 })
 
 .controller('SessionsCtrl', function($scope) {
-  $scope.sessions = Session.query();
+  $scope.sessions = [
+    { title: 'Google IO', id: 1 },
+    { title: 'Apple WWDC', id: 2 },
+    { title: 'Microsoft BUILD', id: 3 },
+    { title: 'Oracle World', id: 4 },
+    { title: 'SAP TechEd Global', id: 5 },
+    { title: 'Microsoft MIX', id: 6 }
+  ];
 })
 
 .controller('SessionCtrl', function($scope, $stateParams) {
-  $scope.session = Session.get({sessionId: $stateParams.sessionId});
+  //$scope.session = $scope.sessions[$stateParams.id];
 });
