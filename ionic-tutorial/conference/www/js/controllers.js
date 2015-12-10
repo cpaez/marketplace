@@ -42,17 +42,11 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('SessionsCtrl', function($scope) {
-  $scope.sessions = [
-    { title: 'Google IO', id: 1 },
-    { title: 'Apple WWDC', id: 2 },
-    { title: 'Microsoft BUILD', id: 3 },
-    { title: 'Oracle World', id: 4 },
-    { title: 'SAP TechEd Global', id: 5 },
-    { title: 'Microsoft MIX', id: 6 }
-  ];
+.controller('SessionsCtrl', function($scope, SessionService) {
+  $scope.sessions = SessionService.getSessions();
 })
 
-.controller('SessionCtrl', function($scope, $stateParams) {
-  //$scope.session = $scope.sessions[$stateParams.id];
+.controller('SessionCtrl', function($scope, $stateParams, SessionService) {
+  $scope.session = SessionService.getSession($stateParams.id);
+  console.log($scope.session);
 });
