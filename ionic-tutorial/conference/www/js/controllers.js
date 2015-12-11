@@ -1,7 +1,7 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['ngOpenFB'])
 
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, ngFB) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -40,13 +40,55 @@ angular.module('starter.controllers', [])
       $scope.closeLogin();
     }, 1000);
   };
+  
+  $scope.fbLogin = function () {
+    ngFB.login({scope: 'email,publish_actions'}).then(
+      function (response) {
+        if (response.status === 'connected') {
+            console.log('Facebook login succeeded');
+            $scope.closeLogin();
+        } else {
+            alert('Facebook login failed');
+        }
+      });
+  };
 })
 
 .controller('SessionsCtrl', function($scope, SessionService) {
   $scope.sessions = SessionService.getSessions();
 })
 
-.controller('SessionCtrl', function($scope, $stateParams, SessionService) {
+.controller('SessionCtrl', function($scope, $stateParams, SessionService, ngFB) {
   $scope.session = SessionService.getSession($stateParams.id);
-  console.log($scope.session);
+  
+  $scope.share = function (event) {
+    console.log('sharing...');
+    ngFB.api({
+      method: 'POST',
+      path: '/me/feed',
+      params: {
+          message: "I'll be attending: '" + $scope.session.title + "' by " +
+          $scope.session.speaker
+      }
+    }).then(
+      function () {
+          alert('The session was shared on Facebook');
+      },
+      function () {
+          alert('An error occurred while sharing this session on Facebook');
+      });
+  };
+})
+
+.controller('ProfileCtrl', function ($scope, ngFB) {
+    ngFB.api({
+        path: '/me',
+        params: {fields: 'id,name'}
+    }).then(
+        function (user) {
+            $scope.user = user;
+        },
+        function (error) {
+            alert('Facebook error: ' + error.error_description);
+        });
 });
