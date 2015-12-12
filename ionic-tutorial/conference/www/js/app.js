@@ -33,6 +33,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB'])
               description: 'Android is in the living room, through Android TV. Players are finding that their familiar consumer electronics devices, from cable boxes, to media players, to televisions, now give them easy access to great games. With the Nearby Connections API we introduced at GDC, developers can now bring second screen experiences to Android TV too. This talk discusses how to easily adapt games to Android TV.', 
               time: '5:00 PM - 5:30 PM', 
               speaker: 'Krispy Uccello', 
+              pic: 'http://ioconf.herokuapp.com/pics/jasonweathersby.jpeg', 
               votes: 0, 
               comments: [
                 { title: 'Hope can attend!' }, 
@@ -45,6 +46,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB'])
               description: 'TV Input Framework enables your app to install channels on TVs that blend in seamlessly with traditional linear channels. This talk will cover an overview of creating an TV input plugin inside your app and best practices for handling media playback, program guide, overlay, setup and more. We will also present upcoming changes in the framework and new features.', 
               time: '6:00 PM - 6:30 PM', 
               speaker: 'Jae Seo', 
+              pic: 'http://ioconf.herokuapp.com/pics/mwbrooks.jpeg', 
               votes: 0, 
               comments: []
             }, 
@@ -54,6 +56,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB'])
               description: 'Numerous new APIs for app payments and fingerprint integration are being introduced in M. This will enable enhanced UX and security for retail payments, banking and online purchasing. We will also have partners integrated with these new capabilities that we want to highlight at IO.', 
               time: '7:00 PM - 7:30 PM', 
               speaker: 'Maya Ben-Ari', 
+              pic: 'http://ioconf.herokuapp.com/pics/joe_bowser.jpg', 
               votes: 0, 
               comments: []
             }, 
@@ -63,6 +66,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB'])
               description: 'The games industry has never been more promising and full of opportunities. In addition to consoles, PC, and browser gaming, as well as phone and tablet games, there are emerging fields including virtual reality and mobile games in the living room. This talk covers how Google is helping developers across this broad range of platforms.', 
               time: '8:00 PM - 9:00 PM', 
               speaker: 'Nathan Camarillo', 
+              pic: 'http://ioconf.herokuapp.com/pics/christophe.jpg', 
               votes: 0, 
               comments: []
             }, 
@@ -72,6 +76,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB'])
               description: 'Geo web services let developers create compelling location based apps on mobile, such as snapping your car’s location to roads, auto-completing an address, or displaying directions from A to B on a map. This talk will tackle several challenges that developers face in working with web services for mobile, in particular key security, how to share context between different APIs and conserving battery life.', 
               time: '7:30 PM - 8:00 PM', 
               speaker: 'Elena Kelareva', 
+              pic: 'http://ioconf.herokuapp.com/pics/holly.jpg', 
               votes: 0, 
               comments: []
             }
