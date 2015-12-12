@@ -90,7 +90,10 @@ angular.module('starter.controllers', ['ngOpenFB'])
       title: data.title,
       description: data.description, 
       speaker: data.speaker, 
-      time: data.time
+      time: data.time, 
+      pic: 'http://ioconf.herokuapp.com/pics/mwbrooks.jpeg', 
+      votes: 0, 
+      comments: []
     });
     data.title = '';
     //data.description = '';
