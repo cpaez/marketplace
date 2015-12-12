@@ -61,7 +61,7 @@ angular.module('starter.controllers', ['ngOpenFB'])
   //$scope.toDoListItems = [];
   
   //init the modal
-  $ionicModal.fromTemplateUrl('modal.html', {
+  $ionicModal.fromTemplateUrl('templates/newSession.html', {
     scope: $scope,
     animation: 'slide-in-up'
   }).then(function (modal) {
@@ -100,8 +100,31 @@ angular.module('starter.controllers', ['ngOpenFB'])
   };
 })
 
-.controller('SessionCtrl', function($scope, $stateParams, SessionService, ngFB) {
+.controller('SessionCtrl', function($scope, $stateParams, SessionService, ngFB, $ionicModal) {
   $scope.session = SessionService.getSession($stateParams.id);
+  
+  //init the modal
+  $ionicModal.fromTemplateUrl('templates/newComment.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function (modal) {
+    $scope.modal = modal;
+  });
+  
+  // function to open the modal
+  $scope.openModal = function () {
+    $scope.modal.show();
+  };
+  
+  // function to close the modal
+  $scope.closeModal = function () {
+    $scope.modal.hide();
+  };
+  
+  //Cleanup the modal when we're done with it!
+  $scope.$on('$destroy', function () {
+    $scope.modal.remove();
+  });
   
   $scope.share = function (event) {
     console.log('sharing...');
@@ -127,6 +150,20 @@ angular.module('starter.controllers', ['ngOpenFB'])
     $scope.session.votes++;
     
     console.log('votes: ' + $scope.session.votes);
+  };
+  
+  //function to add comments to the existing list
+  $scope.comment = function (data) {
+    console.log('commenting...');
+    console.log(data.title);
+    
+    $scope.session.comments.push({
+      title: data.title
+    });
+    data.title = '';
+    $scope.closeModal();
+    
+    console.log($scope.session.comments);
   };
 })
 
