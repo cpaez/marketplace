@@ -1,4 +1,9 @@
 <ion-view view-title="Sessions">
+  <ion-nav-buttons side="secondary" ng-show="false">
+    <div class="buttons">
+      <button class="button" ng-click="openModal()">+</button>
+    </div>
+  </ion-nav-buttons>
   <ion-content>
     <ion-list>
       <ion-item ng-repeat="session in sessions" href="#/app/sessions/{{session.id}}">

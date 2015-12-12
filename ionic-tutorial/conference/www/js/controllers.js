@@ -54,8 +54,50 @@ angular.module('starter.controllers', ['ngOpenFB'])
   };
 })
 
-.controller('SessionsCtrl', function($scope, SessionService) {
+.controller('SessionsCtrl', function($scope, SessionService, $ionicModal) {
   $scope.sessions = SessionService.getSessions();
+  
+  // array list which will contain the items added
+  //$scope.toDoListItems = [];
+  
+  //init the modal
+  $ionicModal.fromTemplateUrl('modal.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function (modal) {
+    $scope.modal = modal;
+  });
+  
+  // function to open the modal
+  $scope.openModal = function () {
+    $scope.modal.show();
+  };
+  
+  // function to close the modal
+  $scope.closeModal = function () {
+    $scope.modal.hide();
+  };
+  
+  //Cleanup the modal when we're done with it!
+  $scope.$on('$destroy', function () {
+    $scope.modal.remove();
+  });
+  
+  //function to add items to the existing list
+  $scope.AddItem = function (data) {
+    $scope.sessions.push({
+      id: 6,
+      title: data.title,
+      description: data.description, 
+      speaker: data.speaker, 
+      time: data.time
+    });
+    data.title = '';
+    //data.description = '';
+    data.speaker = '';
+    data.time = '';
+    $scope.closeModal();
+  };
 })
 
 .controller('SessionCtrl', function($scope, $stateParams, SessionService, ngFB) {
@@ -77,6 +119,14 @@ angular.module('starter.controllers', ['ngOpenFB'])
       function () {
           alert('An error occurred while sharing this session on Facebook');
       });
+  };
+  
+  $scope.vote = function (event) {
+    console.log('voting...');
+    
+    $scope.session.votes++;
+    
+    console.log('votes: ' + $scope.session.votes);
   };
 })
 

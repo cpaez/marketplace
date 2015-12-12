@@ -32,35 +32,40 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB'])
               title: 'Gaming on Android TV', 
               description: 'Android is in the living room, through Android TV. Players are finding that their familiar consumer electronics devices, from cable boxes, to media players, to televisions, now give them easy access to great games. With the Nearby Connections API we introduced at GDC, developers can now bring second screen experiences to Android TV too. This talk discusses how to easily adapt games to Android TV.', 
               time: '5:00 PM - 5:30 PM', 
-              speaker: 'Krispy Uccello'
+              speaker: 'Krispy Uccello', 
+              votes: 0
             }, 
             { 
               id: 2, 
               title: 'Apps installing channels on TVs', 
               description: 'TV Input Framework enables your app to install channels on TVs that blend in seamlessly with traditional linear channels. This talk will cover an overview of creating an TV input plugin inside your app and best practices for handling media playback, program guide, overlay, setup and more. We will also present upcoming changes in the framework and new features.', 
               time: '6:00 PM - 6:30 PM', 
-              speaker: 'Jae Seo'
+              speaker: 'Jae Seo', 
+              votes: 0
             }, 
             { 
               id: 3, 
               title: 'Fingerprint and Payments APIs', 
               description: 'Numerous new APIs for app payments and fingerprint integration are being introduced in M. This will enable enhanced UX and security for retail payments, banking and online purchasing. We will also have partners integrated with these new capabilities that we want to highlight at IO.', 
               time: '7:00 PM - 7:30 PM', 
-              speaker: 'Maya Ben-Ari'
+              speaker: 'Maya Ben-Ari', 
+              votes: 0
             }, 
             { 
               id: 4, 
               title: 'Growing games with Google', 
               description: 'The games industry has never been more promising and full of opportunities. In addition to consoles, PC, and browser gaming, as well as phone and tablet games, there are emerging fields including virtual reality and mobile games in the living room. This talk covers how Google is helping developers across this broad range of platforms.', 
               time: '8:00 PM - 9:00 PM', 
-              speaker: 'Nathan Camarillo'
+              speaker: 'Nathan Camarillo', 
+              votes: 0
             }, 
             { 
               id: 5, 
               title: 'Mobilizing the Maps Data APIs', 
               description: 'Geo web services let developers create compelling location based apps on mobile, such as snapping your car’s location to roads, auto-completing an address, or displaying directions from A to B on a map. This talk will tackle several challenges that developers face in working with web services for mobile, in particular key security, how to share context between different APIs and conserving battery life.', 
               time: '7:30 PM - 8:00 PM', 
-              speaker: 'Elena Kelareva'
+              speaker: 'Elena Kelareva', 
+              votes: 0
             }
         ];
 
