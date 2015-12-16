@@ -54,13 +54,26 @@ angular.module('starter.controllers', ['ngOpenFB'])
   };
 })
 
-.controller('SpeakersCtrl', function($scope, SpeakersService) {
+.controller('SpeakersCtrl', function($scope, SpeakersService, ngFB) {
   $scope.speakers = SpeakersService.getSpeakers();
+
+
 })
 
-.controller('SessionsCtrl', function($scope, SessionService, $ionicModal) {
+.controller('SessionsCtrl', function($scope, SessionService, $ionicModal, ngFB) {
   $scope.sessions = SessionService.getSessions();
   
+  ngFB.api({
+      path: '/me',
+      params: {fields: 'id,name'}
+  }).then(
+    function (user) {
+        $scope.user = user;
+    },
+    function (error) {
+        alert('Facebook error: ' + error.error_description);
+    });
+    
   //init the modal
   $ionicModal.fromTemplateUrl('templates/newSession.html', {
     scope: $scope,
@@ -87,12 +100,12 @@ angular.module('starter.controllers', ['ngOpenFB'])
   //function to add items to the existing list
   $scope.AddItem = function (data) {
     $scope.sessions.push({
-      id: 6,
+      id: $scope.sessions.length + 1,
       title: data.title,
       description: data.description, 
       speaker: data.speaker, 
       time: data.time, 
-      pic: 'http://ioconf.herokuapp.com/pics/mwbrooks.jpeg', 
+      pic: 'http://graph.facebook.com/' + $scope.user.id + '/picture?width=150&height=150', 
       votes: 0, 
       comments: []
     });
@@ -189,12 +202,12 @@ angular.module('starter.controllers', ['ngOpenFB'])
         path: '/me',
         params: {fields: 'id,name'}
     }).then(
-        function (user) {
-            $scope.user = user;
-        },
-        function (error) {
-            alert('Facebook error: ' + error.error_description);
-        });
+      function (user) {
+          $scope.user = user;
+      },
+      function (error) {
+          alert('Facebook error: ' + error.error_description);
+      });
 })
 
 .controller('EventCtrl', function ($scope, $stateParams, EventService, ngFB, $ionicModal) {
