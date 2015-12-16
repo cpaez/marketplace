@@ -54,11 +54,12 @@ angular.module('starter.controllers', ['ngOpenFB'])
   };
 })
 
+.controller('SpeakersCtrl', function($scope, SpeakersService) {
+  $scope.speakers = SpeakersService.getSpeakers();
+})
+
 .controller('SessionsCtrl', function($scope, SessionService, $ionicModal) {
   $scope.sessions = SessionService.getSessions();
-  
-  // array list which will contain the items added
-  //$scope.toDoListItems = [];
   
   //init the modal
   $ionicModal.fromTemplateUrl('templates/newSession.html', {
@@ -103,9 +104,20 @@ angular.module('starter.controllers', ['ngOpenFB'])
   };
 })
 
-.controller('SessionCtrl', function($scope, $stateParams, SessionService, ngFB, $ionicModal) {
+.controller('SessionCtrl', function($scope, $stateParams, SessionService, ngFB, $ionicModal, $ionicPopup) {
   $scope.session = SessionService.getSession($stateParams.id);
   
+  // An alert dialog
+  $scope.showAlert = function(message) {
+   var alertPopup = $ionicPopup.alert({
+     title: 'Message',
+     template: message
+   });
+   alertPopup.then(function(res) {
+     console.log(message);
+   });
+  };
+
   //init the modal
   $ionicModal.fromTemplateUrl('templates/newComment.html', {
     scope: $scope,
@@ -140,10 +152,10 @@ angular.module('starter.controllers', ['ngOpenFB'])
       }
     }).then(
       function () {
-          alert('The session was shared on Facebook');
+          $scope.showAlert('The session was shared on Facebook');
       },
       function () {
-          alert('An error occurred while sharing this session on Facebook');
+          $scope.showAlert('An error occurred while sharing this session on Facebook');
       });
   };
   
@@ -151,6 +163,8 @@ angular.module('starter.controllers', ['ngOpenFB'])
     console.log('voting...');
     
     $scope.session.votes++;
+    
+    $scope.showAlert('Thank you for voting!');
     
     console.log('votes: ' + $scope.session.votes);
   };

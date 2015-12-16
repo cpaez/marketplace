@@ -105,7 +105,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB'])
               description: 'Google I/O 2015 brings together developers for an immersive, two-day experience focused on exploring the next generation of technology, mobile and beyond.', 
               date: 'May 28 - 29, 2016', 
               place: 'Moscone Center West, San Francisco, CA', 
-              pic: 'http://www.geek.com/wp-content/uploads/2013/05/googleIO_2013-590x325.jpg'
+              pic: 'http://phandroid.s3.amazonaws.com/wp-content/uploads/2013/02/google-io-2013-logo.png'
             }
         ];
 
@@ -117,6 +117,49 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB'])
 			for(i=0;i<events.length;i++){
 				if(events[i].id == id){
 					return events[i];
+				}
+			}
+			return null;
+		}
+	}
+})
+
+.factory('SpeakersService', function() {
+  var speakers = [
+            { 
+              id: 1, 
+              name: 'Krispy Uccello', 
+              country: 'United States',
+              pic: 'http://ioconf.herokuapp.com/pics/jasonweathersby.jpeg'
+            }, 
+            { 
+              id: 2, 
+              name: 'Jae Seo', 
+              country: 'United Kingdom',
+              pic: 'http://ioconf.herokuapp.com/pics/mwbrooks.jpeg'
+            }, 
+            { 
+              id: 3, 
+              name: 'Maya Ben-Ari', 
+              country: 'Ireland',
+              pic: 'http://ioconf.herokuapp.com/pics/joe_bowser.jpg', 
+            }, 
+            { 
+              id: 4, 
+              name: 'Nathan Camarillo', 
+              country: 'France',
+              pic: 'http://ioconf.herokuapp.com/pics/christophe.jpg', 
+            },
+        ];
+
+	return {
+		getSpeakers: function(){
+      return speakers;
+		},
+		getSpeaker: function(id){
+			for(i=0;i<speakers.length;i++){
+				if(speakers[i].id == id){
+					return speakers[i];
 				}
 			}
 			return null;
@@ -147,7 +190,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB'])
       url: '/speakers',
       views: {
         'menuContent': {
-          templateUrl: 'templates/speakers.html'
+          templateUrl: 'templates/speakers.html', 
+          controller: 'SpeakersCtrl'
         }
       }
     })
