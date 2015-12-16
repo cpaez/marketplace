@@ -97,6 +97,33 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB'])
 	}
 })
 
+.factory('EventService', function() {
+  var events = [
+            { 
+              id: 1, 
+              title: 'Google I/O', 
+              description: 'Google I/O 2015 brings together developers for an immersive, two-day experience focused on exploring the next generation of technology, mobile and beyond.', 
+              date: 'May 28 - 29, 2016', 
+              place: 'Moscone Center West, San Francisco, CA', 
+              pic: 'http://www.geek.com/wp-content/uploads/2013/05/googleIO_2013-590x325.jpg'
+            }
+        ];
+
+	return {
+		getEvents: function(){
+      return events;
+		},
+		getEvent: function(id){
+			for(i=0;i<events.length;i++){
+				if(events[i].id == id){
+					return events[i];
+				}
+			}
+			return null;
+		}
+	}
+})
+
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
@@ -121,6 +148,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB'])
       views: {
         'menuContent': {
           templateUrl: 'templates/speakers.html'
+        }
+      }
+    })
+    .state('app.event', {
+      url: '/events/:id',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/event.html',
+          controller: 'EventCtrl'
         }
       }
     })

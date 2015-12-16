@@ -181,4 +181,110 @@ angular.module('starter.controllers', ['ngOpenFB'])
         function (error) {
             alert('Facebook error: ' + error.error_description);
         });
+})
+
+.controller('EventCtrl', function ($scope, $stateParams, EventService, ngFB, $ionicModal) {
+     $scope.event = EventService.getEvent($stateParams.id);
+     
+     //init the modal
+    $ionicModal.fromTemplateUrl('templates/mapInfo.html', {
+      scope: $scope,
+      controller: 'MapCtrl', 
+      animation: 'slide-in-up'
+    }).then(function (modal) {
+      $scope.modal = modal;
+    });
+    
+    // function to open the modal
+    $scope.openModal = function () {
+      $scope.modal.show();
+    };
+    
+    // function to close the modal
+    $scope.closeModal = function () {
+      $scope.modal.hide();
+    };
+    
+    //Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function () {
+      $scope.modal.remove();
+    });
+    
+    $scope.share = function (event) {
+      console.log('sharing...');
+      ngFB.api({
+        method: 'POST',
+        path: '/me/feed',
+        params: {
+            message: "I'll be attending: '" + $scope.event.title + "' at " +
+            $scope.event.place + "' on " + $scope.event.date
+        }
+      }).then(
+        function () {
+            alert('The event was shared on Facebook');
+        },
+        function () {
+            alert('An error occurred while sharing this event on Facebook');
+        });
+    };
+})
+
+
+.controller('MapCtrl', function($scope, $ionicLoading, $compile) {
+    $scope.initialize = function() {
+      console.log('what?');
+      var myLatlng = new google.maps.LatLng(43.07493,-89.381388);
+      
+      var mapOptions = {
+        center: myLatlng,
+        zoom: 16,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+      var map = new google.maps.Map(document.getElementById("map"),
+          mapOptions);
+      
+      //Marker + infowindow + angularjs compiled ng-click
+      var contentString = "<div><a ng-click='clickTest()'>Click me!</a></div>";
+      var compiled = $compile(contentString)($scope);
+
+      var infowindow = new google.maps.InfoWindow({
+        content: compiled[0]
+      });
+
+      var marker = new google.maps.Marker({
+        position: myLatlng,
+        map: map,
+        title: 'Uluru (Ayers Rock)'
+      });
+
+      google.maps.event.addListener(marker, 'click', function() {
+        infowindow.open(map,marker);
+      });
+
+      $scope.map = map;
+    };
+    console.log('loading map...');
+    google.maps.event.addDomListener(window, 'load', $scope.initialize);
+    
+    $scope.centerOnMe = function() {
+      if(!$scope.map) {
+        return;
+      }
+
+      $scope.loading = $ionicLoading.show({
+        content: 'Getting current location...',
+        showBackdrop: false
+      });
+
+      navigator.geolocation.getCurrentPosition(function(pos) {
+        $scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+        $scope.loading.hide();
+      }, function(error) {
+        alert('Unable to get location: ' + error.message);
+      });
+    };
+    
+    $scope.clickTest = function() {
+      alert('Example of infowindow with ng-click')
+    };
 });

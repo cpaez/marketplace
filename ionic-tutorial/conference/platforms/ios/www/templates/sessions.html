@@ -1,8 +1,15 @@
 <ion-view view-title="Sessions">
+  <ion-nav-buttons side="secondary" ng-show="false">
+    <div class="buttons">
+      <button class="button" ng-click="openModal()">+</button>
+    </div>
+  </ion-nav-buttons>
   <ion-content>
     <ion-list>
-      <ion-item ng-repeat="session in sessions" href="#/app/sessions/{{session.id}}">
+      <ion-item class="item-avatar-left" ng-repeat="session in sessions" href="#/app/sessions/{{session.id}}">
+        <img ng-src="{{session.pic}}">
         {{session.title}}
+        <p>{{session.speaker}}</p>
       </ion-item>
     </ion-list>
   </ion-content>

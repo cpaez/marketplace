@@ -1,0 +1,21 @@
+<ion-view view-title="Event">
+  <ion-content>
+    <div class="list card">
+      <div class="item">
+        <h3>{{event.date}}</h3>
+        <h2>{{event.title}}</h2>
+        <p><button class="button ion-location" ng-click="openModal()"/> {{event.place}}</p>
+      </div>
+      <div class="item item-body">
+        <img ng-src="{{event.pic}}">
+        <p>{{event.description}}</p>
+      </div>
+      <div class="item tabs tabs-secondary tabs-icon-left">
+        <a class="tab-item" ng-click="share()">
+          <i class="icon ion-share"></i>
+          Share
+        </a>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

@@ -42,8 +42,7 @@ angular.module('starter.controllers', ['ngOpenFB'])
   };
   
   $scope.fbLogin = function () {
-    console.log('hola!');
-    ngFB.login({scope: 'email'}).then(
+    ngFB.login({scope: 'email,publish_actions'}).then(
       function (response) {
         if (response.status === 'connected') {
             console.log('Facebook login succeeded');
@@ -55,11 +54,236 @@ angular.module('starter.controllers', ['ngOpenFB'])
   };
 })
 
-.controller('SessionsCtrl', function($scope, SessionService) {
+.controller('SessionsCtrl', function($scope, SessionService, $ionicModal) {
   $scope.sessions = SessionService.getSessions();
+  
+  // array list which will contain the items added
+  //$scope.toDoListItems = [];
+  
+  //init the modal
+  $ionicModal.fromTemplateUrl('templates/newSession.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function (modal) {
+    $scope.modal = modal;
+  });
+  
+  // function to open the modal
+  $scope.openModal = function () {
+    $scope.modal.show();
+  };
+  
+  // function to close the modal
+  $scope.closeModal = function () {
+    $scope.modal.hide();
+  };
+  
+  //Cleanup the modal when we're done with it!
+  $scope.$on('$destroy', function () {
+    $scope.modal.remove();
+  });
+  
+  //function to add items to the existing list
+  $scope.AddItem = function (data) {
+    $scope.sessions.push({
+      id: 6,
+      title: data.title,
+      description: data.description, 
+      speaker: data.speaker, 
+      time: data.time, 
+      pic: 'http://ioconf.herokuapp.com/pics/mwbrooks.jpeg', 
+      votes: 0, 
+      comments: []
+    });
+    data.title = '';
+    //data.description = '';
+    data.speaker = '';
+    data.time = '';
+    $scope.closeModal();
+  };
 })
 
-.controller('SessionCtrl', function($scope, $stateParams, SessionService) {
+.controller('SessionCtrl', function($scope, $stateParams, SessionService, ngFB, $ionicModal) {
   $scope.session = SessionService.getSession($stateParams.id);
-  console.log($scope.session);
+  
+  //init the modal
+  $ionicModal.fromTemplateUrl('templates/newComment.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function (modal) {
+    $scope.modal = modal;
+  });
+  
+  // function to open the modal
+  $scope.openModal = function () {
+    $scope.modal.show();
+  };
+  
+  // function to close the modal
+  $scope.closeModal = function () {
+    $scope.modal.hide();
+  };
+  
+  //Cleanup the modal when we're done with it!
+  $scope.$on('$destroy', function () {
+    $scope.modal.remove();
+  });
+  
+  $scope.share = function (event) {
+    console.log('sharing...');
+    ngFB.api({
+      method: 'POST',
+      path: '/me/feed',
+      params: {
+          message: "I'll be attending: '" + $scope.session.title + "' by " +
+          $scope.session.speaker
+      }
+    }).then(
+      function () {
+          alert('The session was shared on Facebook');
+      },
+      function () {
+          alert('An error occurred while sharing this session on Facebook');
+      });
+  };
+  
+  $scope.vote = function (event) {
+    console.log('voting...');
+    
+    $scope.session.votes++;
+    
+    console.log('votes: ' + $scope.session.votes);
+  };
+  
+  //function to add comments to the existing list
+  $scope.comment = function (data) {
+    console.log('commenting...');
+    console.log(data.title);
+    
+    $scope.session.comments.push({
+      title: data.title
+    });
+    data.title = '';
+    $scope.closeModal();
+    
+    console.log($scope.session.comments);
+  };
+})
+
+.controller('ProfileCtrl', function ($scope, ngFB) {
+    ngFB.api({
+        path: '/me',
+        params: {fields: 'id,name'}
+    }).then(
+        function (user) {
+            $scope.user = user;
+        },
+        function (error) {
+            alert('Facebook error: ' + error.error_description);
+        });
+})
+
+.controller('EventCtrl', function ($scope, $stateParams, EventService, ngFB, $ionicModal) {
+     $scope.event = EventService.getEvent($stateParams.id);
+     
+     //init the modal
+    $ionicModal.fromTemplateUrl('templates/mapInfo.html', {
+      scope: $scope,
+      controller: 'MapCtrl', 
+      animation: 'slide-in-up'
+    }).then(function (modal) {
+      $scope.modal = modal;
+    });
+    
+    // function to open the modal
+    $scope.openModal = function () {
+      $scope.modal.show();
+    };
+    
+    // function to close the modal
+    $scope.closeModal = function () {
+      $scope.modal.hide();
+    };
+    
+    //Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function () {
+      $scope.modal.remove();
+    });
+    
+    $scope.share = function (event) {
+      console.log('sharing...');
+      ngFB.api({
+        method: 'POST',
+        path: '/me/feed',
+        params: {
+            message: "I'll be attending: '" + $scope.event.title + "' at " +
+            $scope.event.place + "' on " + $scope.event.date
+        }
+      }).then(
+        function () {
+            alert('The event was shared on Facebook');
+        },
+        function () {
+            alert('An error occurred while sharing this event on Facebook');
+        });
+    };
+})
+
+
+.controller('MapCtrl', function($scope, $ionicLoading, $compile, google) {
+    $scope.initialize = function() {
+      var myLatlng = new google.maps.LatLng(43.07493,-89.381388);
+      
+      var mapOptions = {
+        center: myLatlng,
+        zoom: 16,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+      var map = new google.maps.Map(document.getElementById("map"),
+          mapOptions);
+      
+      //Marker + infowindow + angularjs compiled ng-click
+      var contentString = "<div><a ng-click='clickTest()'>Click me!</a></div>";
+      var compiled = $compile(contentString)($scope);
+
+      var infowindow = new google.maps.InfoWindow({
+        content: compiled[0]
+      });
+
+      var marker = new google.maps.Marker({
+        position: myLatlng,
+        map: map,
+        title: 'Uluru (Ayers Rock)'
+      });
+
+      google.maps.event.addListener(marker, 'click', function() {
+        infowindow.open(map,marker);
+      });
+
+      $scope.map = map;
+    };
+    console.log('loading map...');
+    google.maps.event.addDomListener(window, 'load', $scope.initialize);
+    
+    $scope.centerOnMe = function() {
+      if(!$scope.map) {
+        return;
+      }
+
+      $scope.loading = $ionicLoading.show({
+        content: 'Getting current location...',
+        showBackdrop: false
+      });
+
+      navigator.geolocation.getCurrentPosition(function(pos) {
+        $scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+        $scope.loading.hide();
+      }, function(error) {
+        alert('Unable to get location: ' + error.message);
+      });
+    };
+    
+    $scope.clickTest = function() {
+      alert('Example of infowindow with ng-click')
+    };
 });

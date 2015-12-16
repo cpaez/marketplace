@@ -12,10 +12,12 @@
       </div>
       <div class="item item-body">
         <ion-list>
-      <ion-item ng-repeat="comment in session.comments">
-        {{comment.title}}
-      </ion-item>
-    </ion-list>
+          <ion-item ng-repeat="comment in session.comments">
+            <!--<p style="white-space: pre;">-->
+              {{comment.title}}
+            <!--</p>-->
+          </ion-item>
+        </ion-list>
       </div>
       <div class="item tabs tabs-secondary tabs-icon-left">
         <a class="tab-item" ng-click="vote()">

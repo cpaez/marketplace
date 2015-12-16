@@ -17,15 +17,15 @@
 
 /*
 .menu-left .item {
-    background-color: transparent;
+    background-color: gray;
     border: none;
     border-top: 1px solid;
     border-bottom: 1px solid;
     border-color: #333;
-    color: #F0F1F1;
+    color: gray;
 }
 
 .menu-left .item-complex .item-content, .menu-left .item-radio .item-content {
-    background-color: transparent;
+    background-color: gray;
 }
 */
