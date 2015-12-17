@@ -103,7 +103,7 @@ angular.module('starter.controllers', ['ngOpenFB'])
       id: $scope.sessions.length + 1,
       title: data.title,
       description: data.description, 
-      speaker: data.speaker, 
+      speaker: $scope.user.name, 
       time: data.time, 
       pic: 'http://graph.facebook.com/' + $scope.user.id + '/picture?width=150&height=150', 
       votes: 0, 
