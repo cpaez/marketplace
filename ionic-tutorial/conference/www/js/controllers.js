@@ -103,10 +103,11 @@ angular.module('starter.controllers', ['ngOpenFB'])
       description: data.description, 
       speaker: $scope.user.name, 
       time: data.time, 
-      pic: 'http://graph.facebook.com/' + $scope.user.id + '/picture?width=150&height=150', 
+      pic: 'http://graph.facebook.com/' + $scope.user.id + '/picture?width=100&height=100', 
       votes: 0, 
       comments: []
     });
+    console.log('http://graph.facebook.com/' + $scope.user.id + '/picture?width=150&height=150');
     data.title = '';
     //data.description = '';
     data.speaker = '';
