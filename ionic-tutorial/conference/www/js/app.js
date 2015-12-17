@@ -176,6 +176,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB'])
     templateUrl: 'templates/menu.html',
     controller: 'AppCtrl'
   })
+  
+  .state('app.home', {
+      url: "/home",
+      views: {
+        'menuContent': {
+          templateUrl: "templates/home.html"
+        }
+      }
+    })
+  
   .state('app.faq', {
     url: '/faq',
     views: {
@@ -242,5 +252,5 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB'])
   });
   
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/sessions');
+  $urlRouterProvider.otherwise('/app/home');
 });

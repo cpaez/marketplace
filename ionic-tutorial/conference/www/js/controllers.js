@@ -56,8 +56,6 @@ angular.module('starter.controllers', ['ngOpenFB'])
 
 .controller('SpeakersCtrl', function($scope, SpeakersService, ngFB) {
   $scope.speakers = SpeakersService.getSpeakers();
-
-
 })
 
 .controller('SessionsCtrl', function($scope, SessionService, $ionicModal, ngFB) {
