@@ -209,7 +209,7 @@ angular.module('starter.controllers', ['ngOpenFB'])
       });
 })
 
-.controller('EventCtrl', function ($scope, $stateParams, EventService, ngFB, $ionicModal) {
+.controller('EventCtrl', function ($scope, $stateParams, EventService, ngFB, $ionicModal, $ionicLoading, $compile) {
      $scope.event = EventService.getEvent($stateParams.id);
      
      //init the modal
@@ -253,10 +253,7 @@ angular.module('starter.controllers', ['ngOpenFB'])
             alert('An error occurred while sharing this event on Facebook');
         });
     };
-})
-
-
-.controller('MapCtrl', function($scope, $ionicLoading, $compile) {
+    
     $scope.initialize = function() {
       console.log('what?');
       var myLatlng = new google.maps.LatLng(43.07493,-89.381388);
@@ -313,4 +310,4 @@ angular.module('starter.controllers', ['ngOpenFB'])
     $scope.clickTest = function() {
       alert('Example of infowindow with ng-click')
     };
-});
+})

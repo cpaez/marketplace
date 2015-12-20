@@ -1,11 +1,12 @@
-<ion-modal-view  ng-controller="MapCtrl">
+<ion-modal-view >
    <ion-header-bar>
       <h1 class="title">Map Info</h1>
       <div class="buttons">
         <button class="button button-clear" ng-click="closeModal()">Close</button>
       </div>
     </ion-header-bar>
-    <ion-content>
-      <div id="map" data-tap-disabled="true"></div>
+    <ion-content scroll="false" data-tap-disabled="true">
+        <div id="map"></div>
     </ion-content>
+      
 </ion-modal-view>
