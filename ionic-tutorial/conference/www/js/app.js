@@ -25,6 +25,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB', 'firebase
   });
 })
 
+.factory("Sessions", function($firebaseArray) {
+  var itemsRef = new Firebase("https://sweltering-fire-327.firebaseio.com/sessions");
+  return $firebaseArray(itemsRef);
+})
+
 .factory('SessionService', function() {
   var sessions = [
             { 

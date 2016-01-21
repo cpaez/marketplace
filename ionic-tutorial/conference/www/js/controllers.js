@@ -58,8 +58,10 @@ angular.module('starter.controllers', ['ngOpenFB'])
   $scope.speakers = SpeakersService.getSpeakers();
 })
 
-.controller('SessionsCtrl', function($scope, SessionService, $ionicModal, ngFB) {
-  $scope.sessions = SessionService.getSessions();
+//.controller('SessionsCtrl', function($scope, SessionService, $ionicModal, ngFB) {
+.controller('SessionsCtrl', function($scope, Sessions, $ionicModal, ngFB) {
+  //$scope.sessions = SessionService.getSessions();
+  $scope.sessions = Sessions;
   
   ngFB.api({
       path: '/me',
