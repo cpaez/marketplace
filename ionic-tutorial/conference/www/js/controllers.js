@@ -58,10 +58,8 @@ angular.module('starter.controllers', ['ngOpenFB'])
   $scope.speakers = SpeakersService.getSpeakers();
 })
 
-//.controller('SessionsCtrl', function($scope, SessionService, $ionicModal, ngFB) {
-.controller('SessionsCtrl', function($scope, Sessions, $ionicModal, ngFB) {
-  //$scope.sessions = SessionService.getSessions();
-  $scope.sessions = Sessions;
+.controller('SessionsCtrl', function($scope, SessionsService, $ionicModal, ngFB) {
+  $scope.sessions = SessionsService.getSessions();
   
   ngFB.api({
       path: '/me',
@@ -99,8 +97,7 @@ angular.module('starter.controllers', ['ngOpenFB'])
   
   //function to add items to the existing list
   $scope.AddItem = function (data) {
-    $scope.sessions.push({
-      id: $scope.sessions.length + 1,
+    $scope.sessions.$add({
       title: data.title,
       description: data.description, 
       speaker: $scope.user.name, 
@@ -109,17 +106,16 @@ angular.module('starter.controllers', ['ngOpenFB'])
       votes: 0, 
       comments: []
     });
-    console.log('http://graph.facebook.com/' + $scope.user.id + '/picture?width=150&height=150');
     data.title = '';
-    //data.description = '';
     data.speaker = '';
     data.time = '';
     $scope.closeModal();
   };
 })
 
-.controller('SessionCtrl', function($scope, $stateParams, SessionService, ngFB, $ionicModal, $ionicPopup) {
-  $scope.session = SessionService.getSession($stateParams.id);
+.controller('SessionCtrl', function($scope, $stateParams, SessionsService, ngFB, $ionicModal, $ionicPopup) {
+  $scope.session = SessionsService.getSession($stateParams.id);
+  console.log('session: ' + $scope.session);
   
   // An alert dialog
   $scope.showAlert = function(message) {
@@ -188,7 +184,8 @@ angular.module('starter.controllers', ['ngOpenFB'])
     console.log('commenting...');
     console.log(data.title);
     
-    $scope.session.comments.push({
+    //FIX HERE
+    $scope.session.comments.$add({
       title: data.title
     });
     data.title = '';

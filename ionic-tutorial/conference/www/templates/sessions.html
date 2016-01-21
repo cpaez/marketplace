@@ -6,7 +6,7 @@
   </ion-nav-buttons>
   <ion-content>
     <ion-list>
-      <ion-item class="item-avatar-left" ng-repeat="session in sessions" href="#/app/sessions/{{session.id}}">
+      <ion-item class="item-avatar-left" ng-repeat="session in sessions" href="#/app/sessions/{{session.$id}}">
         <img ng-src="{{session.pic}}">
         {{session.title}}
       </ion-item>
