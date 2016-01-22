@@ -46,30 +46,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB', 'firebase
 	}
 })
 
-.factory('EventService', function() {
-  var events = [
-            { 
-              id: 1, 
-              title: 'Google I/O', 
-              description: 'Google I/O 2015 brings together developers for an immersive, two-day experience focused on exploring the next generation of technology, mobile and beyond.', 
-              date: 'May 28 - 29, 2016', 
-              place: 'Moscone Center West, San Francisco, CA', 
-              pic: 'http://phandroid.s3.amazonaws.com/wp-content/uploads/2013/02/google-io-2013-logo.png'
-            }
-        ];
+.factory('EventService', function($firebaseArray) {
+  var url = "https://sweltering-fire-327.firebaseio.com/";
+  var eventsRef = new Firebase(url + "events");
+  var events = $firebaseArray(eventsRef);
 
 	return {
 		getEvents: function(){
       return events;
 		},
 		getEvent: function(id){
-			for(i=0;i<events.length;i++){
-				if(events[i].id == id){
-					return events[i];
-				}
-			}
-			return null;
-		}
+		  return events.$getRecord(id);
+		},
 	}
 })
 

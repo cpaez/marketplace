@@ -205,7 +205,8 @@ angular.module('starter.controllers', ['ngOpenFB'])
 })
 
 .controller('EventCtrl', function ($scope, $stateParams, EventService, ngFB, $ionicModal, $ionicLoading, $compile) {
-     $scope.event = EventService.getEvent($stateParams.id);
+    console.log($stateParams.id);
+    $scope.event = EventService.getEvent($stateParams.id);
      
      //init the modal
     $ionicModal.fromTemplateUrl('templates/mapInfo.html', {
