@@ -73,46 +73,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB', 'firebase
 	}
 })
 
-.factory('SpeakersService', function() {
-  var speakers = [
-            { 
-              id: 1, 
-              name: 'Krispy Uccello', 
-              country: 'United States',
-              pic: 'http://ioconf.herokuapp.com/pics/jasonweathersby.jpeg'
-            }, 
-            { 
-              id: 2, 
-              name: 'Jae Seo', 
-              country: 'United Kingdom',
-              pic: 'http://ioconf.herokuapp.com/pics/mwbrooks.jpeg'
-            }, 
-            { 
-              id: 3, 
-              name: 'Maya Ben-Ari', 
-              country: 'Ireland',
-              pic: 'http://ioconf.herokuapp.com/pics/joe_bowser.jpg', 
-            }, 
-            { 
-              id: 4, 
-              name: 'Nathan Camarillo', 
-              country: 'France',
-              pic: 'http://ioconf.herokuapp.com/pics/christophe.jpg', 
-            },
-        ];
+.factory('SpeakersService', function($firebaseArray) {
+  var url = "https://sweltering-fire-327.firebaseio.com/";
+  var speakersRef = new Firebase(url + "speakers");
+  var speakers = $firebaseArray(speakersRef);
 
 	return {
 		getSpeakers: function(){
       return speakers;
 		},
 		getSpeaker: function(id){
-			for(i=0;i<speakers.length;i++){
-				if(speakers[i].id == id){
-					return speakers[i];
-				}
-			}
-			return null;
-		}
+		  return speakers.$getRecord(id);
+		},
 	}
 })
 

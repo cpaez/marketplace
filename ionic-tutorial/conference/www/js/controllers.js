@@ -104,7 +104,7 @@ angular.module('starter.controllers', ['ngOpenFB'])
       time: data.time, 
       pic: 'http://graph.facebook.com/' + $scope.user.id + '/picture?width=100&height=100', 
       votes: 0, 
-      comments: []
+      comments: {}
     });
     data.title = '';
     data.speaker = '';
