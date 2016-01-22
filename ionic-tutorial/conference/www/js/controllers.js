@@ -115,7 +115,6 @@ angular.module('starter.controllers', ['ngOpenFB'])
 
 .controller('SessionCtrl', function($scope, $stateParams, SessionsService, ngFB, $ionicModal, $ionicPopup) {
   $scope.session = SessionsService.getSession($stateParams.id);
-  console.log('session: ' + $scope.session);
   
   // An alert dialog
   $scope.showAlert = function(message) {
@@ -170,13 +169,10 @@ angular.module('starter.controllers', ['ngOpenFB'])
   };
   
   $scope.vote = function (event) {
-    console.log('voting...');
-    
     $scope.session.votes++;
+    var result = SessionsService.vote($stateParams.id, $scope.session.votes);
     
     $scope.showAlert('Thank you for voting!');
-    
-    console.log('votes: ' + $scope.session.votes);
   };
   
   //function to add comments to the existing list

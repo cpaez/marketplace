@@ -26,7 +26,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB', 'firebase
 })
 
 .factory("SessionsService", function($firebaseArray) {
-  var sessionsRef = new Firebase("https://sweltering-fire-327.firebaseio.com/sessions");
+  var url = "https://sweltering-fire-327.firebaseio.com/";
+  var sessionsRef = new Firebase(url + "sessions");
   var sessions = $firebaseArray(sessionsRef);
   
   return {
@@ -35,6 +36,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB', 'firebase
 		},
 		getSession: function(id){
 		  return sessions.$getRecord(id);
+		}, 
+		vote: function(id, votes){
+		  var ref = new Firebase(url + "sessions/" + id);
+		  ref.update({
+        votes: votes
+      });
 		}
 	}
 })
