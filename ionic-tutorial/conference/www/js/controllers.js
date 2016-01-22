@@ -205,7 +205,6 @@ angular.module('starter.controllers', ['ngOpenFB'])
 })
 
 .controller('EventCtrl', function ($scope, $stateParams, EventService, ngFB, $ionicModal, $ionicLoading, $compile) {
-    console.log($stateParams.id);
     $scope.event = EventService.getEvent($stateParams.id);
      
      //init the modal
@@ -233,7 +232,6 @@ angular.module('starter.controllers', ['ngOpenFB'])
     });
     
     $scope.share = function (event) {
-      console.log('sharing...');
       ngFB.api({
         method: 'POST',
         path: '/me/feed',
