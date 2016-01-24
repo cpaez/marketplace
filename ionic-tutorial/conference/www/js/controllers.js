@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['ngOpenFB'])
+angular.module('starter.controllers', ['ngOpenFB', 'ngMap'])
 
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout, ngFB) {
@@ -181,9 +181,15 @@ angular.module('starter.controllers', ['ngOpenFB'])
     console.log(data.title);
     
     //FIX HERE
-    $scope.session.comments.$add({
-      title: data.title
-    });
+    if ($scope.session.comments) {
+      //$scope.session
+    }
+    else
+    {
+      $scope.session.comments.$add({
+        title: data.title
+      });
+    }
     data.title = '';
     $scope.closeModal();
     
@@ -210,7 +216,6 @@ angular.module('starter.controllers', ['ngOpenFB'])
      //init the modal
     $ionicModal.fromTemplateUrl('templates/mapInfo.html', {
       scope: $scope,
-      controller: 'MapCtrl', 
       animation: 'slide-in-up'
     }).then(function (modal) {
       $scope.modal = modal;
@@ -246,27 +251,5 @@ angular.module('starter.controllers', ['ngOpenFB'])
         function () {
             alert('An error occurred while sharing this event on Facebook');
         });
-    };
-
-    $scope.centerOnMe = function() {
-      if(!$scope.map) {
-        return;
-      }
-
-      $scope.loading = $ionicLoading.show({
-        content: 'Getting current location...',
-        showBackdrop: false
-      });
-
-      navigator.geolocation.getCurrentPosition(function(pos) {
-        $scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-        $scope.loading.hide();
-      }, function(error) {
-        alert('Unable to get location: ' + error.message);
-      });
-    };
-    
-    $scope.clickTest = function() {
-      alert('Example of infowindow with ng-click')
     };
 })

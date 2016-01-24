@@ -1,12 +1,13 @@
-<ion-modal-view >
+<ion-modal-view>
    <ion-header-bar>
       <h1 class="title">Map Info</h1>
       <div class="buttons">
-        <button class="button button-clear" ng-click="closeModal()">Close</button>
+        <button class="button button-clear" ng-click="closeModal()">Close me</button>
       </div>
     </ion-header-bar>
     <ion-content scroll="true" data-tap-disabled="true">
-        <map class='google-map'> </map>
+        <div class="list">
+            <ng-map center="[40.74, -74.18]"></ng-map>
+        </div>
     </ion-content>
-      
 </ion-modal-view>

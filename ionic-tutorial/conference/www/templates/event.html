@@ -4,10 +4,11 @@
       <div class="item">
         <h3>{{event.date}}</h3>
         <h2>{{event.title}}</h2>
-        <p><button class="button ion-ios-location" ng-click="openModal()"/> {{event.place}}</p>
+        <p>{{event.place}}</p>
       </div>
       <div class="item item-body">
         <img ng-src="{{event.pic}}" width="90%" height="90%">
+        <ng-map center="[37.7513739, -122.9855518]" zoom="8"></ng-map>
         <p>{{event.description}}</p>
       </div>
       <div class="item tabs tabs-secondary tabs-icon-left">
