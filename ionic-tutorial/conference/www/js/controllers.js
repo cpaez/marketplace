@@ -204,9 +204,9 @@ angular.module('starter.controllers', ['ngOpenFB'])
       });
 })
 
-.controller('EventCtrl', function ($scope, $stateParams, EventService, ngFB, $ionicModal, $ionicLoading, $compile) {
+.controller('EventCtrl', function ($scope, $stateParams, EventService, ngFB, $ionicModal, $ionicLoading, $compile, NgMap) {
     $scope.event = EventService.getEvent($stateParams.id);
-     
+    
      //init the modal
     $ionicModal.fromTemplateUrl('templates/mapInfo.html', {
       scope: $scope,
@@ -247,42 +247,7 @@ angular.module('starter.controllers', ['ngOpenFB'])
             alert('An error occurred while sharing this event on Facebook');
         });
     };
-    
-    $scope.initialize = function() {
-      console.log('what?');
-      var myLatlng = new google.maps.LatLng(43.07493,-89.381388);
-      
-      var mapOptions = {
-        center: myLatlng,
-        zoom: 16,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      };
-      var map = new google.maps.Map(document.getElementById("map"),
-          mapOptions);
-      
-      //Marker + infowindow + angularjs compiled ng-click
-      var contentString = "<div><a ng-click='clickTest()'>Click me!</a></div>";
-      var compiled = $compile(contentString)($scope);
 
-      var infowindow = new google.maps.InfoWindow({
-        content: compiled[0]
-      });
-
-      var marker = new google.maps.Marker({
-        position: myLatlng,
-        map: map,
-        title: 'Uluru (Ayers Rock)'
-      });
-
-      google.maps.event.addListener(marker, 'click', function() {
-        infowindow.open(map,marker);
-      });
-
-      $scope.map = map;
-    };
-    console.log('loading map...');
-    google.maps.event.addDomListener(window, 'load', $scope.initialize);
-    
     $scope.centerOnMe = function() {
       if(!$scope.map) {
         return;

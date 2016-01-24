@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB', 'firebase'])
+angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB', 'firebase', 'ngMap'])
 
 .run(function($ionicPlatform, ngFB) {
   $ionicPlatform.ready(function() {
@@ -46,7 +46,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB', 'firebase
 	}
 })
 
-.factory('EventService', function($firebaseArray) {
+.factory('EventService', function($firebaseArray, $firebaseObject) {
   var url = "https://sweltering-fire-327.firebaseio.com/";
   var eventsRef = new Firebase(url + "events");
   var events = $firebaseArray(eventsRef);
@@ -56,8 +56,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB', 'firebase
       return events;
 		},
 		getEvent: function(id){
-		  return events.$getRecord(id);
-		},
+		  return $firebaseObject(eventsRef.child(id));
+		}
 	}
 })
 
@@ -72,7 +72,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB', 'firebase
 		},
 		getSpeaker: function(id){
 		  return speakers.$getRecord(id);
-		},
+		}
 	}
 })
 
