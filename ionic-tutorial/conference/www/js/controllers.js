@@ -212,7 +212,7 @@ angular.module('starter.controllers', ['ngOpenFB', 'ngMap', 'ngCordova'])
       });
       
       
-    // Show Current Location on a Map
+// Show Current Location on a Map
     $ionicPlatform.ready(function() {
     
       $scope.$on('mapInitialized', function(event, map) {
@@ -223,7 +223,7 @@ angular.module('starter.controllers', ['ngOpenFB', 'ngMap', 'ngCordova'])
 
       var posOptions = {
             enableHighAccuracy: false,
-            timeout: 20000,
+            timeout: 50000,
             maximumAge: 0
         };
           
