@@ -197,7 +197,7 @@ angular.module('starter.controllers', ['ngOpenFB', 'ngMap', 'ngCordova'])
   };
 })
 
-.controller('ProfileCtrl', function ($scope, ngFB, $ionicPlatform, $cordovaGeolocation) {
+.controller('ProfileCtrl', function ($scope, ngFB, $ionicPlatform, $cordovaGeolocation, $ionicLoading) {
   
     // Getting FB profile info
     ngFB.api({
@@ -212,7 +212,7 @@ angular.module('starter.controllers', ['ngOpenFB', 'ngMap', 'ngCordova'])
       });
       
       
-// Show Current Location on a Map
+    // Show Current Location on a Map
     $ionicPlatform.ready(function() {
     
       $scope.$on('mapInitialized', function(event, map) {
@@ -226,6 +226,10 @@ angular.module('starter.controllers', ['ngOpenFB', 'ngMap', 'ngCordova'])
             timeout: 50000,
             maximumAge: 0
         };
+        
+      $ionicLoading.show({
+        template: '<p>Loading current position...</p><ion-spinner></ion-spinner>'
+      });
           
       $cordovaGeolocation.getCurrentPosition(posOptions).then(function (position) {
         var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -241,6 +245,7 @@ angular.module('starter.controllers', ['ngOpenFB', 'ngMap', 'ngCordova'])
           title: 'You are here!'
         });
         
+        $ionicLoading.hide();
       });
     })
 })
