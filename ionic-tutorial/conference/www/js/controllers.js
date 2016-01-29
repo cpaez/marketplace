@@ -223,7 +223,7 @@ angular.module('starter.controllers', ['ngOpenFB', 'ngMap', 'ngCordova'])
 
       var posOptions = {
             enableHighAccuracy: false,
-            timeout: 2000000,
+            timeout: 20000,
             maximumAge: 0
         };
           
