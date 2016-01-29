@@ -210,31 +210,8 @@ angular.module('starter.controllers', ['ngOpenFB', 'ngMap'])
       });
 })
 
-.controller('EventCtrl', function ($scope, $stateParams, EventService, ngFB, $ionicModal, $ionicLoading, $compile, NgMap) {
+.controller('EventCtrl', function ($scope, $stateParams, EventService, ngFB, $ionicModal, $ionicLoading, $compile) {
     $scope.event = EventService.getEvent($stateParams.id);
-    
-     //init the modal
-    $ionicModal.fromTemplateUrl('templates/mapInfo.html', {
-      scope: $scope,
-      animation: 'slide-in-up'
-    }).then(function (modal) {
-      $scope.modal = modal;
-    });
-    
-    // function to open the modal
-    $scope.openModal = function () {
-      $scope.modal.show();
-    };
-    
-    // function to close the modal
-    $scope.closeModal = function () {
-      $scope.modal.hide();
-    };
-    
-    //Cleanup the modal when we're done with it!
-    $scope.$on('$destroy', function () {
-      $scope.modal.remove();
-    });
     
     $scope.share = function (event) {
       ngFB.api({
