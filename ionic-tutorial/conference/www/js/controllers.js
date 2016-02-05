@@ -103,12 +103,13 @@ angular.module('starter.controllers', ['ngOpenFB', 'ngMap', 'ngCordova'])
       speaker: $scope.user.name, 
       time: data.time, 
       pic: 'http://graph.facebook.com/' + $scope.user.id + '/picture?width=100&height=100', 
-      votes: 0, 
-      comments: {}
+      votes: 0
     });
     data.title = '';
     data.speaker = '';
     data.time = '';
+    data.description = '';
+    
     $scope.closeModal();
   };
 })
@@ -177,23 +178,11 @@ angular.module('starter.controllers', ['ngOpenFB', 'ngMap', 'ngCordova'])
   
   //function to add comments to the existing list
   $scope.comment = function (data) {
-    console.log('commenting...');
-    console.log(data.title);
+    var comment = { title: data.title };
+    var result = SessionsService.comment($stateParams.id, comment);
     
-    //FIX HERE
-    if ($scope.session.comments) {
-      //$scope.session
-    }
-    else
-    {
-      $scope.session.comments.$add({
-        title: data.title
-      });
-    }
     data.title = '';
     $scope.closeModal();
-    
-    console.log($scope.session.comments);
   };
 })
 

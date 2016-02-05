@@ -35,8 +35,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB', 'firebase
       return sessions;
 		},
 		getSession: function(id){
-		  return sessions.$getRecord(id);
+      var session = sessions.$getRecord(id);
+      return session;
 		}, 
+		comment: function(id, comment){
+		  var commentsRef = new Firebase(url + "sessions/" + id + "/comments");
+		  var comments = $firebaseArray(commentsRef);
+		  
+		  var newComment = commentsRef.push(comment);
+		},
 		vote: function(id, votes){
 		  var ref = new Firebase(url + "sessions/" + id);
 		  ref.update({
