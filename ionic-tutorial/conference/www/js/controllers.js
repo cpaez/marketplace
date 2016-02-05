@@ -186,7 +186,7 @@ angular.module('starter.controllers', ['ngOpenFB', 'ngMap', 'ngCordova'])
   };
 })
 
-.controller('ProfileCtrl', function ($scope, ngFB, $ionicPlatform, $cordovaGeolocation, $ionicLoading) {
+.controller('ProfileCtrl', function ($scope, ngFB, $ionicPlatform, $cordovaGeolocation, $ionicLoading, NgMap) {
   
     // Getting FB profile info
     ngFB.api({
@@ -204,7 +204,7 @@ angular.module('starter.controllers', ['ngOpenFB', 'ngMap', 'ngCordova'])
     // Show Current Location on a Map
     $ionicPlatform.ready(function() {
     
-      $scope.$on('mapInitialized', function(event, map) {
+      NgMap.getMap().then(function(map) {
         $scope.map = map;
       });
       
