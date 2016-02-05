@@ -203,9 +203,10 @@ angular.module('starter.controllers', ['ngOpenFB', 'ngMap', 'ngCordova'])
       
     // Show Current Location on a Map
     $ionicPlatform.ready(function() {
-    
+      
+      var vm = this;
       NgMap.getMap().then(function(map) {
-        $scope.map = map;
+        vm.map = map;
       });
       
       $scope.positions = [];
@@ -225,12 +226,12 @@ angular.module('starter.controllers', ['ngOpenFB', 'ngMap', 'ngCordova'])
         $scope.positions.push({lat: pos.k,lng: pos.B});
         
         // Set map position
-        $scope.map.setCenter(pos);
-        $scope.map.setZoom(14);
+        vm.map.setCenter(pos);
+        vm.map.setZoom(14);
         
         var marker = new google.maps.Marker({
           position: pos,
-          map: $scope.map,
+          map: vm.map,
           title: 'You are here!'
         });
         
