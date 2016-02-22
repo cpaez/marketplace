@@ -9,7 +9,7 @@
       <div class="item item-body" style="text-align: center">
         <img ng-src="{{event.pic}}" width="80%" height="80%">
         <p>{{event.description}}</p>
-        <ng-map center="[37.7572778, -122.4619846]" zoom="11"></ng-map>
+        <ng-map id="eventMap" center="[37.7572778, -122.4619846]" zoom="11"></ng-map>
       </div>
       <div class="item tabs tabs-secondary tabs-icon-left">
         <a class="tab-item" ng-click="share()">

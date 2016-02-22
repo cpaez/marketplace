@@ -204,11 +204,6 @@ angular.module('starter.controllers', ['ngOpenFB', 'ngMap', 'ngCordova'])
     // Show Current Location on a Map
     $ionicPlatform.ready(function() {
       
-      var vm = this;
-      NgMap.getMap().then(function(map) {
-        vm.map = map;
-      });
-      
       $scope.positions = [];
 
       var posOptions = {
@@ -220,23 +215,26 @@ angular.module('starter.controllers', ['ngOpenFB', 'ngMap', 'ngCordova'])
       $ionicLoading.show({
         template: '<p>Loading current position...</p><ion-spinner></ion-spinner>'
       });
+      
+      NgMap.getMap({id:'profileMap'}).then(function(map) {
           
-      $cordovaGeolocation.getCurrentPosition(posOptions).then(function (position) {
-        var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        $scope.positions.push({lat: pos.k,lng: pos.B});
-        
-        // Set map position
-        vm.map.setCenter(pos);
-        vm.map.setZoom(14);
-        
-        var marker = new google.maps.Marker({
-          position: pos,
-          map: vm.map,
-          title: 'You are here!'
-        });
-        
-        $ionicLoading.hide();
-      });
+        $cordovaGeolocation.getCurrentPosition(posOptions).then(function (position) {
+          var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+          $scope.positions.push({lat: pos.k,lng: pos.B});
+          
+          // Set map position
+          map.setCenter(pos);
+          map.setZoom(14);
+          
+          var marker = new google.maps.Marker({
+            position: pos,
+            map: map,
+            title: 'You are here!'
+          });
+          
+          $ionicLoading.hide();
+        }); // getCurrentPosition()
+      });  // getMap()
     })
 })
 
